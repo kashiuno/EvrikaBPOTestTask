@@ -19,6 +19,14 @@ import java.net.URISyntaxException;
 @SpringBootApplication
 @Controller
 public class BpoEvrikaApplication {
+
+    private final Runtime runtime;
+    public static final String GET_USERS_COMMAND = "wmic UserAccount get Name";
+
+    public BpoEvrikaApplication(Runtime runtime) {
+        this.runtime = runtime;
+    }
+
     public static void main(String[] args) {
         SpringApplication.run(BpoEvrikaApplication.class, args);
     }
@@ -30,7 +38,7 @@ public class BpoEvrikaApplication {
 
     @GetMapping("exist")
     public String exist(Model model, @RequestParam String user) throws IOException {
-        Process p = Runtime.getRuntime().exec("wmic UserAccount get Name");
+        Process p = runtime.exec(GET_USERS_COMMAND);
         BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
         boolean exist = false;
         for (String line = reader.readLine(); line != null; line = reader.readLine()) {
@@ -48,14 +56,14 @@ public class BpoEvrikaApplication {
     }
 
     public static void browse(String url) {
-        if(Desktop.isDesktopSupported()){
+        if (Desktop.isDesktopSupported()) {
             Desktop desktop = Desktop.getDesktop();
             try {
                 desktop.browse(new URI(url));
             } catch (IOException | URISyntaxException e) {
                 e.printStackTrace();
             }
-        }else{
+        } else {
             Runtime runtime = Runtime.getRuntime();
             try {
                 runtime.exec("rundll32 url.dll,FileProtocolHandler " + url);

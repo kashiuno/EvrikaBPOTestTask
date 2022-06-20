@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Exist</title>
+</head>
+<body>
+<!--/*@thymesVar id="user" type="java.lang.String"*/-->
+<!--/*@thymesVar id="exist" type="java.lang.Boolean"*/-->
+<h1 th:if="${exist}" th:utext="'Пользователь есть'"></h1>
+<h1 th:if="${!exist}" th:utext="'Пользователя нет'"></h1>
+<button><a href="/">Назад</a></button>
+</body>
+</html>

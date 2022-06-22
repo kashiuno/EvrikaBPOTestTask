@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class Config {
+
     @Bean
     Runtime runtime() {
         return Runtime.getRuntime();

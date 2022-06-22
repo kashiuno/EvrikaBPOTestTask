@@ -1,1 +1,1 @@
-mvnw spring-boot:start
+mvnw compile spring-boot:start

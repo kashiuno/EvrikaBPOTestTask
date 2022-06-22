@@ -42,7 +42,7 @@ public class BpoEvrikaApplication {
         BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
         boolean exist = false;
         for (String line = reader.readLine(); line != null; line = reader.readLine()) {
-            if (line.isBlank()) continue;
+            if (line.isBlank() && "Name".equals(line)) continue;
             if (line.trim().equals(user.trim())) exist = true;
         }
         model.addAttribute("user", user);
@@ -55,7 +55,7 @@ public class BpoEvrikaApplication {
         browse("http://localhost:8080");
     }
 
-    public static void browse(String url) {
+    public void browse(String url) {
         if (Desktop.isDesktopSupported()) {
             Desktop desktop = Desktop.getDesktop();
             try {
@@ -64,7 +64,6 @@ public class BpoEvrikaApplication {
                 e.printStackTrace();
             }
         } else {
-            Runtime runtime = Runtime.getRuntime();
             try {
                 runtime.exec("rundll32 url.dll,FileProtocolHandler " + url);
             } catch (IOException e) {

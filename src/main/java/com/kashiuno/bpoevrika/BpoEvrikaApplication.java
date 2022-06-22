@@ -42,7 +42,7 @@ public class BpoEvrikaApplication {
         BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
         boolean exist = false;
         for (String line = reader.readLine(); line != null; line = reader.readLine()) {
-            if (line.isBlank() && "Name".equals(line)) continue;
+            if (line.isBlank() && "Name".equals(line.trim())) continue;
             if (line.trim().equals(user.trim())) exist = true;
         }
         model.addAttribute("user", user);
